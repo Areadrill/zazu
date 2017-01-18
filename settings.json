@@ -1,0 +1,5 @@
+{
+	"BotID": Bot's id,
+	"Token": "Bot's token",
+	"Owners": [your id]
+}
