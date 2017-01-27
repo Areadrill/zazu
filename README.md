@@ -8,7 +8,7 @@ Each module must provide:
 
 + A function "parseCommand", which takes a Message object and the message text as arguments
 
-+ A function "help", which returns a srting explaining how the command works
++ A function "help", which returns a string explaining how the command works
 
 
 ## Todo list
