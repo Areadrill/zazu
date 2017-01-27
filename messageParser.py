@@ -8,12 +8,15 @@ def parseMessage(message):
 	print(str(msg))
 	if msg[0][0] == '/' and msg[0][1:] in set(availableCommands.keys()):
 		return availableCommands[msg[0][1:]].parseCommand(message, " ".join(msg)[1:])
-	else: return "Invalid command.\n" + listAvailableCommands()
+	elif msg[0][0] == '/':
+		return "Invalid command.\n" + listAvailableCommands()
+
+	return None
 
 def listAvailableCommands():
 	commands = "Here's a list of all available commands: \n"
 	for comm in list(availableCommands.keys()):
 		commands += str(comm) + "\n"
 
-	commands += "To see details on one specific command you can type the command followed by help"
+	commands += "To see details on one specific command you can type the command followed by help."
 	return commands

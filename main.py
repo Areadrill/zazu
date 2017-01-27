@@ -20,14 +20,16 @@ async def on_message(message):
 
 	print("received message: " + message.content)
 
-	if message.content == "/kill":
+	if message.content == "/kill" and int(message.author.id) in settings["Owners"]:
 		await client.logout()
 		await client.close()
 		return
 	elif message.content == "/help":
 		client.send_message(message.channel, messageParser.listAvailableCommands())		
 
-	await client.send_message(message.channel, messageParser.parseMessage(message))
+	res = messageParser.parseMessage(message)
+	if not res == None:
+		await client.send_message(message.channel, res)
 
 client.run(settings["Token"])
 
