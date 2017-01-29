@@ -1,7 +1,7 @@
 import re
-import todo
+import todo, roll
 
-availableCommands = {"todo": todo}
+availableCommands = {"todo": todo, "roll": roll}
 
 def parseMessage(message):
 	msg = list(filter((lambda x: len(x) > 0), message.content.lstrip(" \n\t\r").split(" ")))
