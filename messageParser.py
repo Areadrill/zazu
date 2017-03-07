@@ -1,10 +1,10 @@
 import re
-import todo, roll
+import todo, roll, debtTracker
 
-availableCommands = {"todo": todo, "roll": roll}
+availableCommands = {"todo": todo, "roll": roll, "dtracker": debtTracker}
 
 def parseMessage(message):
-	msg = list(filter((lambda x: len(x) > 0), message.content.lstrip(" \n\t\r").split(" ")))
+	msg = list(filter((lambda x: len(x) > 0), message.content.strip(" \n\t\r").split(" ")))
 	print(str(msg))
 	if msg[0][0] == '/' and msg[0][1:] in set(availableCommands.keys()):
 		return availableCommands[msg[0][1:]].parseCommand(message, " ".join(msg)[1:])

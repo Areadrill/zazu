@@ -14,6 +14,7 @@ Each module must provide:
 ## Todo list
 
 + reminders
++ logger
 
 ## Requirements
 

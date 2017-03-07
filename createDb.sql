@@ -1,4 +1,9 @@
 DROP TABLE IF EXISTS ToDo;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Grouping;
+DROP TABLE IF EXISTS UsersInGroup;
+DROP TABLE IF EXISTS UsersInTransaction;
+DROP TABLE IF EXISTS Transactioning;
 
 CREATE TABLE ToDo(
 	itemId INTEGER PRIMARY KEY,
@@ -9,3 +14,41 @@ CREATE TABLE ToDo(
 	done BOOLEAN NOT NULL,
 	creationDate DATETIME NOT NULL
 );
+
+CREATE TABLE User(
+	userId INTEGER PRIMARY KEY NOT NULL,
+	name NVARCHAR(50) NOT NULL,
+	mock BOOLEAN NOT NULL,
+	creator INTEGER,
+	creationDate DATETIME NOT NULL
+);
+
+CREATE TABLE Grouping(
+	groupId INTEGER PRIMARY KEY NOT NULL,
+	name NVARCHAR(50) NOT NULL,
+	creationDate NOT NULL
+);
+
+CREATE TABLE UsersInGroup(
+	userId INTEGER REFERENCES User(userId) NOT NULL,
+	groupId INTEGER REFERENCES Grouping(groupId) NOT NULL,
+	CONSTRAINT pk PRIMARY KEY(userId, groupId)
+);
+
+CREATE TABLE UsersInTransaction(
+	userId INTEGER REFERENCES User(userId) NOT NULL,
+	transId INTEGER REFERENCES Transactioning(transId) NOT NULL,
+	CONSTRAINT pk PRIMARY KEY(userId, transId)
+);
+
+CREATE TABLE Transactioning(
+	transId INTEGER PRIMARY KEY NOT NULL,
+	issuer INTEGER REFERENCES User(userId) NOT NULL,
+	groupId INTEGER REFERENCES Grouping(groupId) NOT NULL,
+	amount REAL NOT NULL,
+	creationDate DATETIME NOT NULL
+);
+
+--TODO: Triggers to check if users in a trnasaction belong to the group the transaction is in
+--		UNIQUES ARE NEEDED EVERYWHERE
+--		ON DELETE CASCADES EVERYWHERE
